@@ -1,0 +1,6 @@
+@Tezo_Todo_HostAddress = http://localhost:5222
+
+GET {{Tezo_Todo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
