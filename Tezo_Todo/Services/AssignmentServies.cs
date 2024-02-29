@@ -147,5 +147,29 @@ namespace Tezo_Todo.Services
             return userDtos;
         }
 
+        public async Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
+        {
+            // It takes two parameters: pageIndex(the index of the page to retrieve) and pageSize(the number of items per page).
+            // It retrieves assignments from the _dbContext.Assignment DbSet.
+            // It orders the assignments by their Id.
+            // It skips (pageIndex - 1) * pageSize items and takes pageSize items, effectively retrieving the items for the current page.
+            // For example, if pageIndex is 1(meaning it's the first page) and pageSize is 10, then no items are skipped (since (1 - 1) * 10 = 0), meaning the first 10 items will be retrieved.
+            //If pageIndex is 2, then(2 - 1) * 10 = 10 items are skipped, so it starts retrieving items from the 11th item onward, effectively starting from the second page.
+
+            var assignments = await _dbContext.Assignment
+                .OrderBy(b => b.Id)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var count = await _dbContext.Assignment.CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+            // It counts the total number of assignments in the database using CountAsync().
+            // It calculates the total number of pages by dividing the total count by the page size and rounding up using Math.Ceiling.
+            // count / (double)pageSize = 35 / 10 = 3.5,&& Math.Ceiling(3.5) = 4
+
+            return new PaginatedList<Assignment>(assignments, pageIndex, totalPages);
+        }
+
     }
 }

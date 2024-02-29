@@ -101,5 +101,13 @@ namespace Tezo_Todo.Controllers
             return Ok(assignment);
         }
 
+        [HttpGet]
+        [Route("PaginatedAssignments")]
+        public async Task<IActionResult> GetAssignmentsWithAssignments(int pageIndex = 1, int pageSize = 10)
+        {
+            var assignments = await _assignmentServie.GetPaginatedAssignments(pageIndex, pageSize);
+            return Ok(assignments);
+        }
+
     }
 }
