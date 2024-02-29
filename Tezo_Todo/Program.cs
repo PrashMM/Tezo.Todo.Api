@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Tezo_Todo.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,11 +9,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<TodoAPIDbContext>(options => options.UseInMemoryDatabase("ContactsDb"));
+//builder.Services.AddDbContext<TodoAPIDbContext>(options => options.UseInMemoryDatabase("TODO"));
 
 builder.Services.AddDbContext<TodoAPIDbContext>(options =>
                options.UseNpgsql(builder.Configuration.GetConnectionString("TodoApiConnectionString")));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
