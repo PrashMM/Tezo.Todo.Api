@@ -13,8 +13,15 @@ namespace Tezo_Todo.Models
         public Status Status { get; set;  }
         public Priority Priority { get; set; }
 
-        //[ForeignKey("User")]
-        //public string UserId { get; set; }
-        //public virtual User User { get; set; }
-    }
+        [ForeignKey("User")]
+        public Guid UserId { get; set; }
+        public virtual User User { get; set; }
+
+
+        public Assignment()
+        {
+
+        }
+
+    }   
 }

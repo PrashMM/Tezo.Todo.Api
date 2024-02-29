@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.VisualBasic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Tezo_Todo.Models
 {
@@ -8,30 +6,24 @@ namespace Tezo_Todo.Models
     {
 
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string UniqueName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
-
-
-        [ForeignKey("Assignment")]
-        public string AssignmentId { get; set; }
-        public virtual List<Assignment> Assignments { get; set; }
 
         public User()
         {
 
         }
 
-        public User(string id, string uniqueName, string firstName, string lastName, string password, Assignment assignment)
+        public User(Guid id, string uniqueName, string firstName, string lastName, string password)
         {
             Id = id;
             UniqueName = uniqueName;
             FirstName = firstName;
             LastName = lastName;
             Password = password;
-            Assignments = new List<Assignment> ();
         }
     }
 }
