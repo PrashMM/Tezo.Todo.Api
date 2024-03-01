@@ -2,6 +2,7 @@
 {
     public class PaginatedList<T>
     {
+        // Model for Pagination
         public List<T> Items { get; }
         public int PageIndex { get; }
         public int TotalPages { get; }

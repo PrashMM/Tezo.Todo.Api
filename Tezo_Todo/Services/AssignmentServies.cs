@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using Tezo_Todo.Data;
 using Tezo_Todo.Dtos;
 using Tezo_Todo.Models;
@@ -20,15 +21,16 @@ namespace Tezo_Todo.Services
 
         public async Task<List<AssignmentDtos>> GetAllAssignments()
         {
+            // Here Data will be returned in Destinationa format. -> _mapper.Map<Destination>(Source);  
             return _mapper.Map<List<AssignmentDtos>>(_dbContext.Assignment.ToList());
         }
 
         public Assignment AddAssignment(Guid id, AssignmentDtos task)
         {
-            var userData = _dbContext.User.FirstOrDefault(u => u.Id == id);
-            task.UserId = id;
+            var userDetails = _dbContext.User.FirstOrDefault(u => u.Id == id);
+            task.UserId = id;  // assigning user Id to assignment userId.
             var assignment = _mapper.Map<Assignment>(task);
-            assignment.User = userData;
+            assignment.User = userDetails;
 
             _dbContext.Assignment.AddAsync(assignment);
             _dbContext.SaveChangesAsync();
@@ -38,7 +40,7 @@ namespace Tezo_Todo.Services
 
         public async Task<bool> UpdateAssignment(Guid id, AssignmentDtos assignment)
         {
-            //var task11 = await _dbContext.Assignment.FindAsync(id);
+            // it will automatically map based on primary key i.e assignment ids.
             try
             {
                 var task = _mapper.Map<Assignment>(assignment);
@@ -61,7 +63,6 @@ namespace Tezo_Todo.Services
             {
                 _dbContext.Assignment.Remove(task);
                 await _dbContext.SaveChangesAsync();
-
             }
             return task;
 
@@ -70,6 +71,7 @@ namespace Tezo_Todo.Services
 
         public IEnumerable<Assignment> SearchTask(string searchTerm)
         {
+            // EF.Functions.Like(...): an Entity Framework function used to perform a SQL LIKE comparison.It's being used to check if the Title of each assignment contains the searchTerm provided by the user.
             var tasks = _dbContext.Assignment.Where(e => EF.Functions.Like(e.Title.ToLower(), $"%{searchTerm.ToLower()}%")).ToList();
 
             foreach (var task in tasks)
