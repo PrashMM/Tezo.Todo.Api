@@ -60,6 +60,5 @@ namespace Tezo_Todo.Services
             return user;
         }
 
-
     }
 }

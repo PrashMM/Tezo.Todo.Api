@@ -28,10 +28,12 @@ namespace Tezo_Todo.Controllers
 
         [HttpPost]
         [Route("Add{id:Guid}")]
-        public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDtos task)
+        public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDtos newTask)
         {
-            var assignment = _assignmentServie.AddAssignment(id, task);   // id represents - user id
-            return Ok(assignment);
+            // id represents :- user id(it asks for userId to get to know under whom i suppose to add new assignment),
+            // newTask will be the new assignment suppose to be insert inside Table.
+            var newAssignment = _assignmentServie.AddAssignment(id, newTask);  
+            return Ok(newAssignment);
         }
 
         [HttpPut]
@@ -47,8 +49,8 @@ namespace Tezo_Todo.Controllers
         public async Task<IActionResult> DeleteAssignment([FromRoute] Guid id)
         {
 
-            var task = await _assignmentServie.DeleteAssignment(id);
-            return Ok($"{task.Title} got deleted");
+            var deletedTask = await _assignmentServie.DeleteAssignment(id);
+            return Ok($"{deletedTask.Title} got deleted");
         }
 
         [HttpGet]
@@ -63,16 +65,16 @@ namespace Tezo_Todo.Controllers
         [Route("SortByDate")]
         public async Task<IActionResult> SortAssignments()
         {
-            var tasks = _assignmentServie.SortByDate();
-            return Ok(tasks);
+            var sortedTasks = _assignmentServie.SortByDate();
+            return Ok(sortedTasks);
         }
 
         [HttpGet]
         [Route("FilterByStatus")]
         public async Task<IActionResult> FilterByStatus([FromQuery] Status status)
         {
-            var tasks = _assignmentServie.FilterByStatus(status);
-            return Ok(tasks);
+            var filteredTasks = _assignmentServie.FilterByStatus(status);
+            return Ok(filteredTasks);
         }
 
 
@@ -80,8 +82,8 @@ namespace Tezo_Todo.Controllers
         [Route("FilterByPriority")]
         public async Task<IActionResult> FilterByPriority([FromQuery] Priority priority)
         {
-            var tasks = _assignmentServie.FilterByPriority(priority);
-            return Ok(tasks);
+            var filteredTasks = _assignmentServie.FilterByPriority(priority);
+            return Ok(filteredTasks);
         }
 
         [HttpGet]
