@@ -19,7 +19,7 @@ namespace Tezo_Todo.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllAssignments()
         {
             return Ok(_assignmentServie.GetAllAssignments());

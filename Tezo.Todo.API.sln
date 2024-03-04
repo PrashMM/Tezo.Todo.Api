@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo", "Tezo_Todo\Tezo.Todo.csproj", "{407C5623-38BD-4FC2-895A-71B73B26BB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tezo.Todo.Models", "Tezo.Todo.Models\Tezo.Todo.Models.csproj", "{61EBAEED-FC46-4626-AB4B-C1EAFF498E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Models", "Tezo.Todo.Models\Tezo.Todo.Models.csproj", "{61EBAEED-FC46-4626-AB4B-C1EAFF498E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tezo.Todo.Services", "Tezo.Todo.Services\Tezo.Todo.Services.csproj", "{4DEC47FC-AFDC-45C0-9EF3-93D603C06328}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Services", "Tezo.Todo.Services\Tezo.Todo.Services.csproj", "{4DEC47FC-AFDC-45C0-9EF3-93D603C06328}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tezo.Todo.Data", "Tezo.Todo.Data\Tezo.Todo.Data.csproj", "{C00BFD1A-E533-4091-91DA-84A90ED1D2A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Data", "Tezo.Todo.Data\Tezo.Todo.Data.csproj", "{C00BFD1A-E533-4091-91DA-84A90ED1D2A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tezo.Todo.Repository", "Tezo.Todo.Repository\Tezo.Todo.Repository.csproj", "{58750A4E-C861-4376-B862-A724AA0030DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C00BFD1A-E533-4091-91DA-84A90ED1D2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00BFD1A-E533-4091-91DA-84A90ED1D2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00BFD1A-E533-4091-91DA-84A90ED1D2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58750A4E-C861-4376-B862-A724AA0030DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58750A4E-C861-4376-B862-A724AA0030DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58750A4E-C861-4376-B862-A724AA0030DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58750A4E-C861-4376-B862-A724AA0030DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
