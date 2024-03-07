@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Tezo.Todo.Api;
 
-namespace Tezo_Todo.Controllers
+namespace Tezo.Todo.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

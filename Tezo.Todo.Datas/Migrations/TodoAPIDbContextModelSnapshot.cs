@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Tezo_Todo.Data;
+
 
 #nullable disable
 
-namespace Tezo_Todo.Migrations
+namespace Tezo.Todo.Data.Migrations
 {
     [DbContext(typeof(TodoAPIDbContext))]
-    [Migration("20240227134931_postgthu")]
-    partial class postgthu
+    partial class TodoAPIDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +73,7 @@ namespace Tezo_Todo.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UniqueName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 

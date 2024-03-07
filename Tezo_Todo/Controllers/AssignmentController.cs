@@ -1,25 +1,24 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Tezo_Todo.Data;
-using Tezo_Todo.Dtos;
-using Tezo_Todo.Models;
-using Tezo_Todo.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Tezo.Todo.Services.Interfaces;
+using Tezo.Todo.Models;
+using Tezo.Todo.Dtos;
+using System.Threading;
 
-namespace Tezo_Todo.Controllers
+namespace Tezo.Todo.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AssignmentController : ControllerBase
+    [Route("api/[controller]")]   // Specifie the base route for the controller. [controller] is a token replaced with the name of the controller, which in this case is AssignmentController.
+    [ApiController] // Indicates that the controller is an API controller. It enables automatic model validation, among other features.
+    public class AssignmentController : ControllerBase //  ControllerBase handles content negotiation, allowing clients to request data in different formats (e.g., JSON, XML) based on the Accept header of the HTTP request.
     {
-        private readonly AssignmentServie _assignmentServie;
+        private IAssignmentService _assignmentServie;
 
-        public AssignmentController(TodoAPIDbContext dbContext, IMapper mapper)
+        public AssignmentController(IAssignmentService assignmentService)
         {
-            _assignmentServie = new AssignmentServie(dbContext, mapper);
+            _assignmentServie = assignmentService;
         }
 
 
-        [HttpGet("GetAll")]
+        [HttpGet("GetAll")]  // Defines an HTTP GET endpoint with the route "api/Assignment/GetAll". This endpoint retrieves all assignments.
         public async Task<IActionResult> GetAllAssignments()
         {
             return Ok(_assignmentServie.GetAllAssignments());
@@ -27,12 +26,12 @@ namespace Tezo_Todo.Controllers
 
 
         [HttpPost]
-        [Route("Add{id:Guid}")]
+        [Route("Add{id:Guid}")]  // Defines an HTTP POST endpoint with the route "api/Assignment/Add{id:Guid}". [FromRoute] represents the user ID under whom the new assignment is to be added.
         public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDtos newTask)
         {
             // id represents :- user id(it asks for userId to get to know under whom i suppose to add new assignment),
             // newTask will be the new assignment suppose to be insert inside Table.
-            var newAssignment = _assignmentServie.AddAssignment(id, newTask);  
+            var newAssignment = _assignmentServie.AddAssignment(id, newTask);
             return Ok(newAssignment);
         }
 
@@ -43,6 +42,8 @@ namespace Tezo_Todo.Controllers
             await _assignmentServie.UpdateAssignment(id, assignment);
             return Ok("success");
         }
+        // Task : The method is asynchronous(Task), allowing it to perform asynchronous operations without blocking the request thread.
+        // IActionResult : The method will eventually return an HTTP response(IActionResult), representing the result of the action
 
         [HttpDelete]
         [Route("Delete{id:Guid}")]

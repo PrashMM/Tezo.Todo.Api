@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tezo.Todo.Datas\Tezo.Todo.Data.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Dtos\Tezo.Todo.Dtos.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Model\Tezo.Todo.Models.csproj" />
+  </ItemGroup>
+
+</Project>

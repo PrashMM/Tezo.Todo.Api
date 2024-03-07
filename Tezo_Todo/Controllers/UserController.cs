@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tezo_Todo.Data;
-using Tezo_Todo.Models;
-using Tezo_Todo.Services;
+using Tezo.Todo.Models;
+using Tezo.Todo.Services.Interfaces;
 
-namespace Tezo_Todo.Controllers
+namespace Tezo.Todo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserService _userService;
-        public UserController(TodoAPIDbContext dbContext)
+        private IUserServices _userService;
+        public UserController(IUserServices userServices)
         {
-            _userService = new UserService(dbContext);
+            _userService = userServices;
         }
 
         [HttpGet]

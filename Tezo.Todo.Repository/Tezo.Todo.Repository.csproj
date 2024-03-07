@@ -11,9 +11,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Models\Tezo.Todo.Models.csproj" />
-  </ItemGroup>
-
 </Project>

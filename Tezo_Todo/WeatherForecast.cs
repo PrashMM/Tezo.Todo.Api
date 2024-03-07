@@ -1,4 +1,4 @@
-namespace Tezo_Todo
+namespace Tezo.Todo.Api
 {
     public class WeatherForecast
     {
