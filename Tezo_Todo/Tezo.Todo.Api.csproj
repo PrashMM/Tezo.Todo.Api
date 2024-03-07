@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tezo.Todo.Datas\Tezo.Todo.Data.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Dtos\Tezo.Todo.Dtos.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Service\Tezo.Todo.Services.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Dto\Tezo.Todo.Dto.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Services\Tezo.Todo.Services.csproj" />
   </ItemGroup>
 
 </Project>

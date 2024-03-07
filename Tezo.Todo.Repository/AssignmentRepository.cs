@@ -20,13 +20,13 @@ namespace Tezo.Todo.Repository
             _mapper = mapper;
         }
 
-        public async Task<List<AssignmentDtos>> GetAllAssignments()
+        public async Task<List<AssignmentDto>> GetAllAssignments()
         {
             // Here Data will be returned in Destinationa format. -> _mapper.Map<Destination>(Source);  
-            return _mapper.Map<List<AssignmentDtos>>(_dbContext.Assignment.ToList());
+            return _mapper.Map<List<AssignmentDto>>(_dbContext.Assignment.ToList());
         }
 
-        public Assignment AddAssignment(Guid id, AssignmentDtos task)
+        public Assignment AddAssignment(Guid id, AssignmentDto task)
         {
             var userDetails = _dbContext.User.FirstOrDefault(u => u.Id == id);
             task.UserId = id;  // assigning user Id to assignment userId.
@@ -39,7 +39,7 @@ namespace Tezo.Todo.Repository
 
         }
 
-        public async Task<bool> UpdateAssignment(Guid id, AssignmentDtos assignment)
+        public async Task<bool> UpdateAssignment(Guid id, AssignmentDto assignment)
         {
             // it will automatically map based on primary key i.e assignment ids.
             try
@@ -115,24 +115,24 @@ namespace Tezo.Todo.Repository
             return tasks;
         }
 
-        public UserDtos GetUserRespectiveAssignments(Guid id)
+        public UserDto GetUserRespectiveAssignments(Guid id)
         {
             var user = _dbContext.User.Find(id);
             var tasks = _dbContext.Assignment.Where(i => i.UserId == id);
-            var users = _mapper.Map<UserDtos>(user);
-            var assignment = _mapper.Map<List<AssignmentDtos>>(tasks);
+            var users = _mapper.Map<UserDto>(user);
+            var assignment = _mapper.Map<List<AssignmentDto>>(tasks);
 
             users.Assignments = assignment;
             return users;
         }
 
 
-        public List<UserDtos> GetAllUserAllAssignments()
+        public List<UserDto> GetAllUserAllAssignments()
         {
             var users = _dbContext.User.ToList();
             var tasks = _dbContext.Assignment.ToList();
-            var userDtos = _mapper.Map<List<UserDtos>>(users);
-            var taskDtos = _mapper.Map<List<AssignmentDtos>>(tasks);
+            var userDtos = _mapper.Map<List<UserDto>>(users);
+            var taskDtos = _mapper.Map<List<AssignmentDto>>(tasks);
 
             foreach (var userDto in userDtos)
             {

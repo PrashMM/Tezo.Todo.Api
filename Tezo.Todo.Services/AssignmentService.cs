@@ -1,45 +1,38 @@
-﻿
-using AutoMapper;
-using Tezo_Todo.Data;
-using Tezo_Todo.Dtos;
-using Tezo_Todo.Models;
-using Tezo_Todo.Services.Interfaces;
+﻿using Tezo.Todo.Dtos;
+using Tezo.Todo.Dtos.PaginatedList;
+using Tezo.Todo.Models;
+using Tezo.Todo.Repository.Interfaces;
+using Tezo.Todo.Services.Interfaces;
 
-namespace Tezo_Todo.Services
+namespace Tezo.Todo.Services
 {
-    public class AssignmentServie : IAssignmentService
+    public class AssignmentService : IAssignmentService
     {
-        private readonly AssignmentRepository assignmentRepository;
-        public AssignmentServie(TodoAPIDbContext dbContext, IMapper mapper)
+        private IAssignmentRepository assignmentRepository;
+        public AssignmentService(IAssignmentRepository assignmentRepo)
         {
-            assignmentRepository = new AssignmentRepository(dbContext, mapper);
-
+            assignmentRepository = assignmentRepo;
         }
 
-        public  Task<List<AssignmentDtos>> GetAllAssignments()
+        public Task<List<AssignmentDto>> GetAllAssignments()
         {
-            return  assignmentRepository.GetAllAssignments();
+            return assignmentRepository.GetAllAssignments();
         }
 
-        public Assignment AddAssignment(Guid id, AssignmentDtos task)
+        public Assignment AddAssignment(Guid id, AssignmentDto task)
         {
-            
-            return assignmentRepository.AddAssignment(id,task);
-
+            return assignmentRepository.AddAssignment(id, task);
         }
 
-        public  Task<bool> UpdateAssignment(Guid id, AssignmentDtos assignment)
+        public Task<bool> UpdateAssignment(Guid id, AssignmentDto assignment)
         {
             return assignmentRepository.UpdateAssignment(id, assignment);
-
         }
 
-        public  Task<Assignment> DeleteAssignment(Guid id)
+        public Task<Assignment> DeleteAssignment(Guid id)
         {
             return assignmentRepository.DeleteAssignment(id);
-
         }
-
 
         public IEnumerable<Assignment> SearchTask(string searchTerm)
         {
@@ -61,18 +54,17 @@ namespace Tezo_Todo.Services
             return assignmentRepository.FilterByPriority(priority);
         }
 
-        public UserDtos GetUserRespectiveAssignments(Guid id)
+        public UserDto GetUserRespectiveAssignments(Guid id)
         {
             return assignmentRepository.GetUserRespectiveAssignments(id);
         }
 
-
-        public List<UserDtos> GetAllUserAllAssignments()
+        public List<UserDto> GetAllUserAllAssignments()
         {
             return assignmentRepository.GetAllUserAllAssignments();
         }
 
-        public  Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
+        public Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
         {
             return assignmentRepository.GetPaginatedAssignments(pageIndex, pageSize);
         }

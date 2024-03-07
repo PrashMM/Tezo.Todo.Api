@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tezo.Todo.Datas\Tezo.Todo.Data.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Dtos\Tezo.Todo.Dtos.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Model\Tezo.Todo.Models.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Models\Tezo.Todo.Models.csproj" />
   </ItemGroup>
 
 </Project>

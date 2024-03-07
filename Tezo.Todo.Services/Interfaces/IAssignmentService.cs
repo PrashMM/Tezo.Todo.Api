@@ -2,20 +2,20 @@
 using Tezo.Todo.Dtos.PaginatedList;
 using Tezo.Todo.Models;
 
-namespace Tezo.Todo.Repository.Interfaces
+namespace Tezo.Todo.Services.Interfaces
 {
-    public interface IAssignmentRepository
+    public interface IAssignmentService
     {
-        public Task<List<AssignmentDtos>> GetAllAssignments();
-        public Assignment AddAssignment(Guid id, AssignmentDtos task);
-        public Task<bool> UpdateAssignment(Guid id, AssignmentDtos assignment);
+        public Task<List<AssignmentDto>> GetAllAssignments();
+        public Assignment AddAssignment(Guid id, AssignmentDto task);
+        public Task<bool> UpdateAssignment(Guid id, AssignmentDto assignment);
         public Task<Assignment> DeleteAssignment(Guid id);
         public IEnumerable<Assignment> SearchTask(string searchTerm);
         public IEnumerable<Assignment> SortByDate();
         public IEnumerable<Assignment> FilterByStatus(Status status);
         public IEnumerable<Assignment> FilterByPriority(Priority priority);
-        public UserDtos GetUserRespectiveAssignments(Guid id);
-        public List<UserDtos> GetAllUserAllAssignments();
+        public UserDto GetUserRespectiveAssignments(Guid id);
+        public List<UserDto> GetAllUserAllAssignments();
         public Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize);
 
     }

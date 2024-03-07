@@ -5,15 +5,15 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Api", "Tezo_Todo\Tezo.Todo.Api.csproj", "{407C5623-38BD-4FC2-895A-71B73B26BB04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Data", "Tezo.Todo.Datas\Tezo.Todo.Data.csproj", "{E654A622-2EF7-4565-B7F8-6A81204CBC76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Data", "Tezo.Todo.Data\Tezo.Todo.Data.csproj", "{E654A622-2EF7-4565-B7F8-6A81204CBC76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Models", "Tezo.Todo.Model\Tezo.Todo.Models.csproj", "{1DF5DDC2-42CA-4E8A-A35D-332B75F24999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Models", "Tezo.Todo.Models\Tezo.Todo.Models.csproj", "{1DF5DDC2-42CA-4E8A-A35D-332B75F24999}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Dtos", "Tezo.Todo.Dtos\Tezo.Todo.Dtos.csproj", "{86060994-C425-485F-932C-3E0B1AAA96F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Dto", "Tezo.Todo.Dto\Tezo.Todo.Dto.csproj", "{86060994-C425-485F-932C-3E0B1AAA96F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Repository", "Tezo.Todo.Repositorys\Tezo.Todo.Repository.csproj", "{DB68F991-48F8-4DCA-A139-936A71BD9226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Repository", "Tezo.Todo.Repository\Tezo.Todo.Repository.csproj", "{DB68F991-48F8-4DCA-A139-936A71BD9226}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Services", "Tezo.Todo.Service\Tezo.Todo.Services.csproj", "{FA5A5C29-491C-4F91-9328-EA1B604A204C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Services", "Tezo.Todo.Services\Tezo.Todo.Services.csproj", "{FA5A5C29-491C-4F91-9328-EA1B604A204C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF059D1C-E642-474F-98A3-DA7E115E8F68}"
 	ProjectSection(SolutionItems) = preProject

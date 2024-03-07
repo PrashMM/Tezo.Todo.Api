@@ -1,8 +1,8 @@
-﻿using Tezo_Todo.Models;
+﻿using Tezo.Todo.Models;
 
-namespace Tezo_Todo.Dtos
+namespace Tezo.Todo.Dtos
 {
-    public class AssignmentDtos
+    public class AssignmentDto
     {
         // View Models (DTOs) are used to prepare and manage data for display in the user interface.
         public string Title { get; set; }

@@ -27,7 +27,7 @@ namespace Tezo.Todo.Api.Controllers
 
         [HttpPost]
         [Route("Add{id:Guid}")]  // Defines an HTTP POST endpoint with the route "api/Assignment/Add{id:Guid}". [FromRoute] represents the user ID under whom the new assignment is to be added.
-        public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDtos newTask)
+        public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDto newTask)
         {
             // id represents :- user id(it asks for userId to get to know under whom i suppose to add new assignment),
             // newTask will be the new assignment suppose to be insert inside Table.
@@ -37,7 +37,7 @@ namespace Tezo.Todo.Api.Controllers
 
         [HttpPut]
         [Route("Update{id:Guid}")]
-        public async Task<IActionResult> UpdateAssignment([FromRoute] Guid id, AssignmentDtos assignment)
+        public async Task<IActionResult> UpdateAssignment([FromRoute] Guid id, AssignmentDto assignment)
         {
             await _assignmentServie.UpdateAssignment(id, assignment);
             return Ok("success");
