@@ -12,6 +12,9 @@ namespace Tezo.Todo.Models
         public DateTime DueDate { get; set; }
         public Status Status { get; set; }
         public Priority Priority { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
 
         [ForeignKey("User")]
         public Guid UserId { get; set; }

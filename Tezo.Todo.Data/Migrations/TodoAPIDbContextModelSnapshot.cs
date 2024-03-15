@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-
+using Tezo.Todo.Data;
 
 #nullable disable
 
@@ -22,17 +22,26 @@ namespace Tezo.Todo.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Tezo_Todo.Models.Assignment", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.Assignment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DueDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Priority")
@@ -55,7 +64,7 @@ namespace Tezo.Todo.Data.Migrations
                     b.ToTable("Assignment");
                 });
 
-            modelBuilder.Entity("Tezo_Todo.Models.User", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,9 +91,9 @@ namespace Tezo.Todo.Data.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Tezo_Todo.Models.Assignment", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.Assignment", b =>
                 {
-                    b.HasOne("Tezo_Todo.Models.User", "User")
+                    b.HasOne("Tezo.Todo.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

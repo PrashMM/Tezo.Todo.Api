@@ -1,4 +1,6 @@
-﻿using Tezo.Todo.Dtos;
+﻿using System.Text;
+using Tezo.Todo.Dto;
+using Tezo.Todo.Dtos;
 using Tezo.Todo.Dtos.PaginatedList;
 using Tezo.Todo.Models;
 using Tezo.Todo.Repository.Interfaces;
@@ -8,66 +10,60 @@ namespace Tezo.Todo.Services
 {
     public class AssignmentService : IAssignmentService
     {
-        private IAssignmentRepository assignmentRepository;
+        private readonly IAssignmentRepository assignmentRepository;
         public AssignmentService(IAssignmentRepository assignmentRepo)
         {
             assignmentRepository = assignmentRepo;
         }
 
-        public Task<List<AssignmentDto>> GetAllAssignments()
+        public async Task<List<AssignmentDto>> GetAllAssignments()
         {
-            return assignmentRepository.GetAllAssignments();
+            return await assignmentRepository.GetAllAssignments();
         }
 
-        public Assignment AddAssignment(Guid id, AssignmentDto task)
+        public async Task<Assignment> AddAssignment(Guid id, AssignmentDto task)
         {
-            return assignmentRepository.AddAssignment(id, task);
+            return await assignmentRepository.AddAssignment(id, task);
         }
 
-        public Task<bool> UpdateAssignment(Guid id, AssignmentDto assignment)
+        public async Task<bool> UpdateAssignment(Guid id, AssignmentDto assignment)
         {
-            return assignmentRepository.UpdateAssignment(id, assignment);
+            return await assignmentRepository.UpdateAssignment(id, assignment);
         }
 
-        public Task<Assignment> DeleteAssignment(Guid id)
+        public async Task<Assignment> DeleteAssignment(Guid id)
         {
-            return assignmentRepository.DeleteAssignment(id);
+            return await assignmentRepository.DeleteAssignment(id);
         }
 
-        public IEnumerable<Assignment> SearchTask(string searchTerm)
+        public async Task<List<Assignment>> SearchTask(string searchTerm)
         {
-            return assignmentRepository.SearchTask(searchTerm);
+            return await assignmentRepository.SearchTask(searchTerm);
         }
 
-        public IEnumerable<Assignment> SortByDate()
+        public async Task<List<Assignment>> SortByDate()
         {
-            return assignmentRepository.SortByDate();
+            return await assignmentRepository.SortByDate();
         }
 
-        public IEnumerable<Assignment> FilterByStatus(Status status)
+        public async Task<List<Assignment>> FilterAssignments(AssignmentFilterModel filter)
         {
-            return assignmentRepository.FilterByStatus(status);
+            return await assignmentRepository.FilterAssignments(filter);
         }
 
-        public IEnumerable<Assignment> FilterByPriority(Priority priority)
+        public async Task<UserAssignmentsDto> GetUserRespectiveAssignments(Guid id)
         {
-            return assignmentRepository.FilterByPriority(priority);
+            return await assignmentRepository.GetUserRespectiveAssignments(id);
         }
 
-        public UserDto GetUserRespectiveAssignments(Guid id)
+        public async Task<List<UserAssignmentsDto>> GetUsersAssignments()
         {
-            return assignmentRepository.GetUserRespectiveAssignments(id);
+            return await assignmentRepository.GetUsersAssignments();
         }
 
-        public List<UserDto> GetAllUserAllAssignments()
+        public async Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
         {
-            return assignmentRepository.GetAllUserAllAssignments();
+            return await assignmentRepository.GetPaginatedAssignments(pageIndex, pageSize);
         }
-
-        public Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
-        {
-            return assignmentRepository.GetPaginatedAssignments(pageIndex, pageSize);
-        }
-
     }
 }

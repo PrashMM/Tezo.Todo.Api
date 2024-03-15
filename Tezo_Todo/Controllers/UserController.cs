@@ -8,8 +8,8 @@ namespace Tezo.Todo.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserServices _userService;
-        public UserController(IUserServices userServices)
+        private readonly IUserService _userService;
+        public UserController(IUserService userServices)
         {
             _userService = userServices;
         }
@@ -17,7 +17,7 @@ namespace Tezo.Todo.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(_userService.GetAllUser());
+            return Ok(await _userService.GetAllUser());
         }
 
 
@@ -25,7 +25,7 @@ namespace Tezo.Todo.Api.Controllers
         [Route("AddUser")]
         public async Task<IActionResult> AddUser(User user)
         {
-            var newUser = _userService.AddUser(user);
+            var newUser = await _userService.AddUser(user);
             return Ok(newUser);
         }
 
@@ -41,7 +41,7 @@ namespace Tezo.Todo.Api.Controllers
         [Route("Update{id:Guid}")]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, User user)
         {
-            var updatedUser = _userService.UpdateUser(id, user);
+            var updatedUser =await _userService.UpdateUser(id, user);
             return Ok(updatedUser);
         }
 

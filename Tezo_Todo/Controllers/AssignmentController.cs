@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tezo.Todo.Services.Interfaces;
-using Tezo.Todo.Models;
 using Tezo.Todo.Dtos;
-using System.Threading;
+using Tezo.Todo.Dto;
 
 namespace Tezo.Todo.Api.Controllers
 {
@@ -10,7 +9,7 @@ namespace Tezo.Todo.Api.Controllers
     [ApiController] // Indicates that the controller is an API controller. It enables automatic model validation, among other features.
     public class AssignmentController : ControllerBase //  ControllerBase handles content negotiation, allowing clients to request data in different formats (e.g., JSON, XML) based on the Accept header of the HTTP request.
     {
-        private IAssignmentService _assignmentServie;
+        private readonly IAssignmentService _assignmentServie;
 
         public AssignmentController(IAssignmentService assignmentService)
         {
@@ -21,22 +20,23 @@ namespace Tezo.Todo.Api.Controllers
         [HttpGet("GetAll")]  // Defines an HTTP GET endpoint with the route "api/Assignment/GetAll". This endpoint retrieves all assignments.
         public async Task<IActionResult> GetAllAssignments()
         {
-            return Ok(_assignmentServie.GetAllAssignments());
+            return Ok(await _assignmentServie.GetAllAssignments());
         }
 
 
         [HttpPost]
-        [Route("Add{id:Guid}")]  // Defines an HTTP POST endpoint with the route "api/Assignment/Add{id:Guid}". [FromRoute] represents the user ID under whom the new assignment is to be added.
+        [Route("{id:Guid}")]  // Defines an HTTP POST endpoint with the route "api/Assignment/Add{id:Guid}". [FromRoute] represents the user ID under whom the new assignment is to be added.
         public async Task<IActionResult> AddAssignment([FromRoute] Guid id, AssignmentDto newTask)
         {
             // id represents :- user id(it asks for userId to get to know under whom i suppose to add new assignment),
             // newTask will be the new assignment suppose to be insert inside Table.
-            var newAssignment = _assignmentServie.AddAssignment(id, newTask);
+            var newAssignment = await _assignmentServie.AddAssignment(id, newTask);
             return Ok(newAssignment);
         }
 
+
         [HttpPut]
-        [Route("Update{id:Guid}")]
+        [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateAssignment([FromRoute] Guid id, AssignmentDto assignment)
         {
             await _assignmentServie.UpdateAssignment(id, assignment);
@@ -45,64 +45,59 @@ namespace Tezo.Todo.Api.Controllers
         // Task : The method is asynchronous(Task), allowing it to perform asynchronous operations without blocking the request thread.
         // IActionResult : The method will eventually return an HTTP response(IActionResult), representing the result of the action
 
+
         [HttpDelete]
-        [Route("Delete{id:Guid}")]
+        [Route("{id:Guid}")]
         public async Task<IActionResult> DeleteAssignment([FromRoute] Guid id)
         {
-
             var deletedTask = await _assignmentServie.DeleteAssignment(id);
             return Ok($"{deletedTask.Title} got deleted");
         }
+
 
         [HttpGet]
         [Route("Search")]
         public async Task<IActionResult> SearchAssignment([FromQuery] string searchTerm)
         {
-            var tasks = _assignmentServie.SearchTask(searchTerm);
+            var tasks = await _assignmentServie.SearchTask(searchTerm);
             return Ok(tasks);
         }
+
 
         [HttpGet]
         [Route("SortByDate")]
         public async Task<IActionResult> SortAssignments()
         {
-            var sortedTasks = _assignmentServie.SortByDate();
+            var sortedTasks = await _assignmentServie.SortByDate();
             return Ok(sortedTasks);
         }
 
-        [HttpGet]
-        [Route("FilterByStatus")]
-        public async Task<IActionResult> FilterByStatus([FromQuery] Status status)
-        {
-            var filteredTasks = _assignmentServie.FilterByStatus(status);
-            return Ok(filteredTasks);
-        }
-
 
         [HttpGet]
-        [Route("FilterByPriority")]
-        public async Task<IActionResult> FilterByPriority([FromQuery] Priority priority)
+        [Route("Filter")]
+        public async Task<IActionResult> FilterAssignments([FromQuery] AssignmentFilterModel filter)
         {
-            var filteredTasks = _assignmentServie.FilterByPriority(priority);
-            return Ok(filteredTasks);
+            var filteredData = await _assignmentServie.FilterAssignments(filter);
+            return Ok(filteredData);
         }
+
 
         [HttpGet]
         [Route("RespectiveUser&Tasks{id:Guid}")]
         public async Task<IActionResult> ShowRespectiveUserAssignments(Guid id)
         {
-            var assignment = _assignmentServie.GetUserRespectiveAssignments(id);
+            var assignment = await _assignmentServie.GetUserRespectiveAssignments(id);
             return Ok(assignment);
         }
-
 
         [HttpGet]
         [Route("AllUsersTasks")]
-        public async Task<IActionResult> ShowAllUsersAllAssignments()
+        public async Task<IActionResult> ShowUsersAssignments()
         {
-            var assignment = _assignmentServie.GetAllUserAllAssignments();
+            var assignment = await _assignmentServie.GetUsersAssignments();
             return Ok(assignment);
         }
+
 
         [HttpGet]
         [Route("PaginatedAssignments")]

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Dtos\Tezo.Todo.Dto.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Dto\Tezo.Todo.Dto.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Models\Tezo.Todo.Models.csproj" />
   </ItemGroup>

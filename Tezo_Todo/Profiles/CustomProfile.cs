@@ -10,7 +10,7 @@ namespace Tezo.Todo.Api.Profiles
     {
         public CustomProfile()
         {
-            CreateMap<User, UserDto>()
+            CreateMap<User, UserAssignmentsDto>()
                 //  .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + "" + src.LastName))
                 .ReverseMap();
 

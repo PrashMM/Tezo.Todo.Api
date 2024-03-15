@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Models", "Tezo.To
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Dto", "Tezo.Todo.Dto\Tezo.Todo.Dto.csproj", "{86060994-C425-485F-932C-3E0B1AAA96F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Repository", "Tezo.Todo.Repository\Tezo.Todo.Repository.csproj", "{DB68F991-48F8-4DCA-A139-936A71BD9226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Repositories", "Tezo.Todo.Repositories\Tezo.Todo.Repositories.csproj", "{DB68F991-48F8-4DCA-A139-936A71BD9226}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tezo.Todo.Services", "Tezo.Todo.Services\Tezo.Todo.Services.csproj", "{FA5A5C29-491C-4F91-9328-EA1B604A204C}"
 EndProject

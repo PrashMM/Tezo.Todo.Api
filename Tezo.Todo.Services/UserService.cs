@@ -1,42 +1,57 @@
-﻿using Tezo.Todo.Models;
+﻿using System.Text;
+
+using System.Security.Cryptography;
+using Tezo.Todo.Models;
 using Tezo.Todo.Repository.Interfaces;
 using Tezo.Todo.Services.Interfaces;
 
 namespace Tezo.Todo.Services
 {
-    public class UserService : IUserServices
+    public class UserService : IUserService
     {
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
         public UserService(IUserRepository userRepo)
         {
             userRepository = userRepo;
         }
 
-        public List<User> GetAllUser()
+        public async Task<List<User>> GetAllUser()
         {
-            return userRepository.GetAllUser();
+            return await userRepository.GetAllUser();
         }
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
-            return userRepository.AddUser(user);
+            string hashedPassword = HashPassword(user.Password);
+            return await userRepository.AddUser(user);
         }
 
-        public Task<User> GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
-            return userRepository.GetUserById(id);
-        }
-
-
-        public Task<bool> UpdateUser(Guid id, User user)
-        {
-            return userRepository.UpdateUser(id, user);
+            return await userRepository.GetUserById(id);
         }
 
 
-        public Task<User> DeleteUser(Guid id)
+        public async Task<bool> UpdateUser(Guid id, User user)
         {
-            return userRepository.DeleteUser(id);
+            return await userRepository.UpdateUser(id, user);
+        }
+
+
+        public async Task<User> DeleteUser(Guid id)
+        {
+            return await userRepository.DeleteUser(id);
+        }
+
+        //to store password
+        public static string HashPassword(string password)
+        {
+            using (var algorithm = new SHA256Managed())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = algorithm.ComputeHash(passwordBytes);
+                return Convert.ToBase64String(hashBytes);
+            }
         }
 
 

@@ -10,6 +10,8 @@ namespace Tezo.Todo.Dtos
         public DateTime DueDate { get; set; }
         public Status Status { get; set; }
         public Priority Priority { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
         public Guid UserId { get; set; }
     }
 }

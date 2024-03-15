@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using Tezo.Todo.Data;
 using Tezo.Todo.Repository;
 using Tezo.Todo.Repository.Interfaces;
@@ -26,7 +27,7 @@ builder.Services.AddDbContext<TodoAPIDbContext>(options =>
 builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserServices, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // <IUserServices, UserService> =>  It means that whenever an object of type IUserServices is requested from the dependency injection container,
 // an instance of UserService will be provided.

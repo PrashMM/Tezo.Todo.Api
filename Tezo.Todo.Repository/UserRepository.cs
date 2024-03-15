@@ -1,5 +1,7 @@
-﻿using Tezo.Todo.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Tezo.Todo.Data;
 using Tezo.Todo.Models;
+using Tezo.Todo.Repositories;
 using Tezo.Todo.Repository.Interfaces;
 
 namespace Tezo.Todo.Repository
@@ -13,16 +15,16 @@ namespace Tezo.Todo.Repository
             _dbContext = dbContext;
         }
 
-        public List<User> GetAllUser()
+        public async Task<List<User>> GetAllUser()
         {
-            return _dbContext.User.ToList();
+            return await _dbContext.User.ToListAsync();
         }
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
-            _dbContext.User.AddAsync(user);
-            _dbContext.SaveChangesAsync();
-
+            user.CreatedOn = Extension.GetCurrentDateTime();
+            await _dbContext.User.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
             return user;
         }
 
@@ -37,8 +39,9 @@ namespace Tezo.Todo.Repository
         {
             try
             {
+                user.ModifiedOn = Extension.GetCurrentDateTime();
                 var userData = _dbContext.User.Update(user);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -51,14 +54,14 @@ namespace Tezo.Todo.Repository
         public async Task<User> DeleteUser(Guid id)
         {
             var user = await GetUserById(id);
-            if (user != null)
+            if (user != null && user.IsDeleted == true)
             {
-                _dbContext.User.Remove(user);
-                _dbContext.SaveChangesAsync();
+                user.IsDeleted = true;
+                _dbContext.Entry(user).State = EntityState.Modified;
+                //_dbContext.User.Remove(user);
+                await _dbContext.SaveChangesAsync();
             }
             return user;
         }
-
-
     }
 }

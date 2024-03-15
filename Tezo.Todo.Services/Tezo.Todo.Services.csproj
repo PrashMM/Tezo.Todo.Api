@@ -8,14 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Dto\Tezo.Todo.Dto.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Models\Tezo.Todo.Models.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Repository\Tezo.Todo.Repository.csproj" />
-    <ProjectReference Include="..\Tezo.Todo.Repository\Tezo.Todo.Repository.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Repository\Tezo.Todo.Repositories.csproj" />
   </ItemGroup>
 
 </Project>
