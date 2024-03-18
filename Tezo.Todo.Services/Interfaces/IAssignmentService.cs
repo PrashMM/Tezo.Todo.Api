@@ -13,7 +13,7 @@ namespace Tezo.Todo.Services.Interfaces
         public Task<Assignment> DeleteAssignment(Guid id);
         public Task<List<Assignment>> SearchTask(string searchTerm);
         public Task<List<Assignment>> SortByDate();
-        public Task<List<Assignment>> FilterAssignments(AssignmentFilterModel filter);
+        public Task<List<Assignment>> FilterAssignments(AssignmentFilter filter);
         public Task<UserAssignmentsDto> GetUserRespectiveAssignments(Guid id);
         public Task<List<UserAssignmentsDto>> GetUsersAssignments();
         public Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize);

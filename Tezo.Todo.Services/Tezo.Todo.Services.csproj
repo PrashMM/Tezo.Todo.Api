@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Dto\Tezo.Todo.Dto.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Models\Tezo.Todo.Models.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Repositories\Tezo.Todo.Repositories.csproj" />
     <ProjectReference Include="..\Tezo.Todo.Repository\Tezo.Todo.Repositories.csproj" />
   </ItemGroup>
 

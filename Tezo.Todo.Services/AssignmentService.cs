@@ -46,7 +46,7 @@ namespace Tezo.Todo.Services
             return await assignmentRepository.SortByDate();
         }
 
-        public async Task<List<Assignment>> FilterAssignments(AssignmentFilterModel filter)
+        public async Task<List<Assignment>> FilterAssignments(AssignmentFilter filter)
         {
             return await assignmentRepository.FilterAssignments(filter);
         }

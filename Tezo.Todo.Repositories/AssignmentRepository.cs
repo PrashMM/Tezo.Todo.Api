@@ -106,7 +106,7 @@ namespace Tezo.Todo.Repository
         //    var tasks = _dbContext.Assignment.Where(e => e.Priority == priority);
         //    return tasks.ToList();
         //}
-        public async Task<List<Assignment>> FilterAssignments(AssignmentFilterModel filter)
+        public async Task<List<Assignment>> FilterAssignments(AssignmentFilter filter)
         {
             var query = _dbContext.Assignment.AsQueryable();
             if (filter.status.HasValue)

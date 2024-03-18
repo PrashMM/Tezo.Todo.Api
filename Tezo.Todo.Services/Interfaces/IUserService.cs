@@ -1,4 +1,5 @@
-﻿using Tezo.Todo.Models;
+﻿using Tezo.Todo.Dtos;
+using Tezo.Todo.Models;
 
 namespace Tezo.Todo.Services.Interfaces
 {

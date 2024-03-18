@@ -75,7 +75,7 @@ namespace Tezo.Todo.Api.Controllers
 
         [HttpGet]
         [Route("Filter")]
-        public async Task<IActionResult> FilterAssignments([FromQuery] AssignmentFilterModel filter)
+        public async Task<IActionResult> FilterAssignments([FromQuery] AssignmentFilter filter)
         {
             var filteredData = await _assignmentServie.FilterAssignments(filter);
             return Ok(filteredData);

@@ -15,7 +15,7 @@ namespace Tezo.Todo.Repositories
 
         public static DateTime GetCurrentDateTime()
         {
-            return DateTime.Now;
+            return DateTime.UtcNow;
         }
     }
 }

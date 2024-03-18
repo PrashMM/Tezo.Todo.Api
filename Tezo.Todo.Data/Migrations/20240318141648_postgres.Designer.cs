@@ -12,7 +12,7 @@ using Tezo.Todo.Data;
 namespace Tezo.Todo.Data.Migrations
 {
     [DbContext(typeof(TodoAPIDbContext))]
-    [Migration("20240315003114_postgres")]
+    [Migration("20240318141648_postgres")]
     partial class postgres
     {
         /// <inheritdoc />
@@ -73,13 +73,22 @@ namespace Tezo.Todo.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Password")
                         .IsRequired()
