@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tezo.Todo.Dtos;
-using Tezo.Todo.Models;
+using Tezo.Todo.Dto;
 using Tezo.Todo.Services.Interfaces;
 
 namespace Tezo.Todo.Api.Controllers
@@ -24,7 +23,7 @@ namespace Tezo.Todo.Api.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddUser(UserDto user)
         {
             var newUser = await _userService.AddUser(user);
             return Ok(newUser);
@@ -40,7 +39,7 @@ namespace Tezo.Todo.Api.Controllers
 
         [HttpPut]
         [Route("Update{id:Guid}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, User user)
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, UserDto user)
         {
             var updatedUser =await _userService.UpdateUser(id, user);
             return Ok(updatedUser);

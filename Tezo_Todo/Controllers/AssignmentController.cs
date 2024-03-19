@@ -2,7 +2,6 @@
 using Tezo.Todo.Services.Interfaces;
 using Tezo.Todo.Dtos;
 using Tezo.Todo.Dto;
-
 namespace Tezo.Todo.Api.Controllers
 {
     [Route("api/[controller]")]   // Specifie the base route for the controller. [controller] is a token replaced with the name of the controller, which in this case is AssignmentController.
@@ -55,30 +54,17 @@ namespace Tezo.Todo.Api.Controllers
         }
 
 
-        [HttpGet]
-        [Route("Search")]
-        public async Task<IActionResult> SearchAssignment([FromQuery] string searchTerm)
-        {
-            var tasks = await _assignmentServie.SearchTask(searchTerm);
-            return Ok(tasks);
-        }
-
+        // searching, Sorting, filtering based on Status and priority.
 
         [HttpGet]
-        [Route("SortByDate")]
-        public async Task<IActionResult> SortAssignments()
+        [Route("FilterTasks")]
+        public async Task<IActionResult> FilterAssignments(
+    [FromQuery] string searchTerm,
+    [FromQuery] bool isSort,
+    [FromQuery] AssignmentFilter filter)
         {
-            var sortedTasks = await _assignmentServie.SortByDate();
-            return Ok(sortedTasks);
-        }
-
-
-        [HttpGet]
-        [Route("Filter")]
-        public async Task<IActionResult> FilterAssignments([FromQuery] AssignmentFilter filter)
-        {
-            var filteredData = await _assignmentServie.FilterAssignments(filter);
-            return Ok(filteredData);
+            var filteredTasks = await _assignmentServie.FilterAssignments(searchTerm, isSort, filter); 
+            return Ok(filteredTasks);
         }
 
 

@@ -32,7 +32,7 @@ namespace Tezo.Todo.Repository
             }
             else
             {
-                return new List<AssignmentDto>(); 
+                return new List<AssignmentDto>();
             }
         }
 
@@ -74,52 +74,43 @@ namespace Tezo.Todo.Repository
             if (task != null && task.IsDeleted == false)
             {
                 task.IsDeleted = true;
-                _dbContext.Entry(task).State = EntityState.Modified;
-                // _dbContext.Assignment.Remove(task);
                 await _dbContext.SaveChangesAsync();
             }
             return task;
         }
 
 
-        public async Task<List<Assignment>> SearchTask(string searchTerm)
+     
+      
+        public async Task<List<Assignment>> FilterAssignments(string searchTerm, bool isSort, AssignmentFilter filter)
         {
-            // EF.Functions.Like(...): an Entity Framework function used to perform a SQL LIKE comparison.It's being used to check if the Title of each assignment contains the searchTerm provided by the user.
-            var tasks = await _dbContext.Assignment.Where(e => !e.IsDeleted && EF.Functions.Like(e.Title.ToLower(), $"%{searchTerm.ToLower()}%")).ToListAsync();
-            return tasks;
-        }
+            var query = _dbContext.Assignment.Where(e => !e.IsDeleted);
 
-        public async Task<List<Assignment>> SortByDate()
-        {
-            var tasks = _dbContext.Assignment.Where(e => !e.IsDeleted).OrderBy(e => e.DueDate);
-            return await tasks.ToListAsync();
-        }
+            if (!Extension.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(e => EF.Functions.Like(e.Title.ToLower(), $"%{searchTerm.ToLower()}%"));
+            }
 
-        //public List<Assignment> FilterByStatus(Status status)
-        //{
-        //    var tasks = _dbContext.Assignment.Where(e => e.Status == status);
-        //    return tasks.ToList();
-        //}
+            // Sorting functionality
+            if (isSort)
+            {
+                query = query.OrderBy(e => e.DueDate);
 
-        //public List<Assignment> FilterByPriority(Priority priority)
-        //{
-        //    var tasks = _dbContext.Assignment.Where(e => e.Priority == priority);
-        //    return tasks.ToList();
-        //}
-        public async Task<List<Assignment>> FilterAssignments(AssignmentFilter filter)
-        {
-            var query = _dbContext.Assignment.AsQueryable();
+            }
+
+            // Filtering functionality
             if (filter.status.HasValue)
             {
-                query = query.Where(e => !e.IsDeleted && e.Status == filter.status.Value);
+                query = query.Where(e => e.Status == filter.status.Value);
             }
             if (filter.priority.HasValue)
             {
-                query = query.Where(e => !e.IsDeleted && e.Priority == filter.priority.Value);
+                query = query.Where(e => e.Priority == filter.priority.Value);
             }
-            return await query.ToListAsync();
 
+            return await query.ToListAsync();
         }
+
 
         public async Task<UserAssignmentsDto> GetUserRespectiveAssignments(Guid id)
         {
@@ -132,27 +123,37 @@ namespace Tezo.Todo.Repository
             return users;
         }
 
-
         public async Task<List<UserAssignmentsDto>> GetUsersAssignments()
         {
-            var users = await _dbContext.User.ToListAsync();
+            var users = await _dbContext.User.Where(u => !u.IsDeleted).ToListAsync();
             var tasks = await _dbContext.Assignment.Where(e => !e.IsDeleted).ToListAsync();
-            var userDtos = _mapper.Map<List<UserAssignmentsDto>>(users);
+
+            var userDtos = _mapper.Map<List<UserDto>>(users);
             var taskDtos = _mapper.Map<List<AssignmentDto>>(tasks);
+
+            var userAssignmentDtos = new List<UserAssignmentsDto>();
 
             foreach (var userDto in userDtos)
             {
-                var user = users.Find(e => e.UserName == userDto.UserName);
+                var user = users.Find(e => e.FirstName == userDto.FirstName && e.LastName == userDto.LastName);
                 if (user != null)
                 {
                     var userTasks = taskDtos.Where(t => t.UserId == user.Id).ToList();
 
-                    userDto.Assignments = [];
-                    userDto.Assignments.AddRange(userTasks);
+                    // Filter tasks to include only undeleted assignments
+                    userTasks = userTasks.Where(t => !tasks.Any(a => a.Id == t.UserId && a.IsDeleted)).ToList();
+
+                    var userAssignmentsDto = new UserAssignmentsDto
+                    {
+                        user = userDto,
+                        Assignments = userTasks
+                    };
+
+                    userAssignmentDtos.Add(userAssignmentsDto);
                 }
             }
 
-            return userDtos;
+            return userAssignmentDtos;
         }
 
         public async Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)

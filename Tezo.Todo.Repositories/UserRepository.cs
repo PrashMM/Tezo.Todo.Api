@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Tezo.Todo.Data;
+using Tezo.Todo.Dto;
 using Tezo.Todo.Models;
 using Tezo.Todo.Repositories;
 using Tezo.Todo.Repository.Interfaces;
@@ -9,38 +11,54 @@ namespace Tezo.Todo.Repository
     public class UserRepository : IUserRepository
     {
         private readonly TodoAPIDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public UserRepository(TodoAPIDbContext dbContext)
+        public UserRepository(TodoAPIDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public async Task<List<User>> GetAllUser()
+        public async Task<List<UserDto>> GetAllUser()
         {
-            return await _dbContext.User.ToListAsync();
+            if (_dbContext.User.Any())
+            {
+                var undeletedUsers = await UndeletedUsers();
+                return _mapper.Map<List<UserDto>>(undeletedUsers);
+            }
+            else
+            {
+                return new List<UserDto>();
+            }
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<User> AddUser(UserDto user)
         {
-            user.CreatedOn = Extension.GetCurrentDateTime();
-            await _dbContext.User.AddAsync(user);
+            var newUser = _mapper.Map<User>(user);
+
+            newUser.CreatedOn = Extension.GetCurrentDateTime();
+
+            await _dbContext.User.AddAsync(newUser);
             await _dbContext.SaveChangesAsync();
-            return user;
+
+            return newUser;
         }
 
         public async Task<User> GetUserById(Guid id)
         {
-            var user = await _dbContext.User.FindAsync(id);
+            var user = await _dbContext.User.FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
             return user;
         }
 
 
-        public async Task<bool> UpdateUser(Guid id, User user)
+        public async Task<bool> UpdateUser(Guid id, UserDto user)
         {
             try
             {
                 user.ModifiedOn = Extension.GetCurrentDateTime();
-                var userData = _dbContext.User.Update(user);
+                var userr = _mapper.Map<User>(user);
+                userr.Id = id;
+                var userData = _dbContext.User.Update(userr);
                 await _dbContext.SaveChangesAsync();
                 return true;
             }
@@ -54,14 +72,19 @@ namespace Tezo.Todo.Repository
         public async Task<User> DeleteUser(Guid id)
         {
             var user = await GetUserById(id);
-            if (user != null && user.IsDeleted == true)
+            if (user != null && user.IsDeleted == false)
             {
                 user.IsDeleted = true;
-                _dbContext.Entry(user).State = EntityState.Modified;
-                //_dbContext.User.Remove(user);
                 await _dbContext.SaveChangesAsync();
             }
             return user;
         }
+
+        public async Task<List<User>> UndeletedUsers()
+        {
+            var undundeletedUsers = await _dbContext.User.Where(a => !a.IsDeleted).ToListAsync();
+            return undundeletedUsers;
+        }
+
     }
 }

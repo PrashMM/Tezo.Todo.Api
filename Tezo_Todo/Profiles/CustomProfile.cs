@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Tezo.Todo.Dto;
 using Tezo.Todo.Dtos;
 using Tezo.Todo.Models;
 
@@ -16,6 +17,8 @@ namespace Tezo.Todo.Api.Profiles
 
             //  configures a mapping from the Assignment model to the AssignmentDtos DTO
             CreateMap<Assignment, AssignmentDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

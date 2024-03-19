@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Tezo.Todo.Dto;
+﻿using Tezo.Todo.Dto;
 using Tezo.Todo.Dtos;
 using Tezo.Todo.Dtos.PaginatedList;
 using Tezo.Todo.Models;
@@ -35,22 +34,10 @@ namespace Tezo.Todo.Services
         {
             return await assignmentRepository.DeleteAssignment(id);
         }
-
-        public async Task<List<Assignment>> SearchTask(string searchTerm)
+        public async Task<List<Assignment>> FilterAssignments(string searchTerm, bool isSort, AssignmentFilter filter)
         {
-            return await assignmentRepository.SearchTask(searchTerm);
+            return await assignmentRepository.FilterAssignments(searchTerm,isSort,filter);
         }
-
-        public async Task<List<Assignment>> SortByDate()
-        {
-            return await assignmentRepository.SortByDate();
-        }
-
-        public async Task<List<Assignment>> FilterAssignments(AssignmentFilter filter)
-        {
-            return await assignmentRepository.FilterAssignments(filter);
-        }
-
         public async Task<UserAssignmentsDto> GetUserRespectiveAssignments(Guid id)
         {
             return await assignmentRepository.GetUserRespectiveAssignments(id);
@@ -64,6 +51,6 @@ namespace Tezo.Todo.Services
         public async Task<PaginatedList<Assignment>> GetPaginatedAssignments(int pageIndex, int pageSize)
         {
             return await assignmentRepository.GetPaginatedAssignments(pageIndex, pageSize);
-        }
+        }       
     }
 }

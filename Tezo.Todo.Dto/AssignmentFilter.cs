@@ -6,5 +6,6 @@ namespace Tezo.Todo.Dto
     {
         public Status? status { get; set; }
         public Priority? priority { get; set; }
+
     }
 }

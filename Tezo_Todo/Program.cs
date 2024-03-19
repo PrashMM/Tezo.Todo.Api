@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 using Tezo.Todo.Data;
 using Tezo.Todo.Repository;
 using Tezo.Todo.Repository.Interfaces;

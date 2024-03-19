@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using Tezo.Todo.Models;
 using Tezo.Todo.Repository.Interfaces;
 using Tezo.Todo.Services.Interfaces;
-using Tezo.Todo.Dtos;
+using Tezo.Todo.Dto;
 
 namespace Tezo.Todo.Services
 {
@@ -16,12 +16,12 @@ namespace Tezo.Todo.Services
             userRepository = userRepo;
         }
 
-        public async Task<List<User>> GetAllUser()
+        public async Task<List<UserDto>> GetAllUser()
         {
             return await userRepository.GetAllUser();
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<User> AddUser(UserDto user)
         {
             string hashedPassword = HashPassword(user.Password);
             user.Password = hashedPassword;
@@ -34,7 +34,7 @@ namespace Tezo.Todo.Services
         }
 
 
-        public async Task<bool> UpdateUser(Guid id, User user)
+        public async Task<bool> UpdateUser(Guid id, UserDto user)
         {
             return await userRepository.UpdateUser(id, user);
         }
@@ -55,15 +55,5 @@ namespace Tezo.Todo.Services
                 return Convert.ToBase64String(hashBytes);
             }
         }
-
-        public async Task<bool> VerifyPassword(string inputPassword, string hashedPassword)
-        {
-            string hashedInputPassword = HashPassword(inputPassword);
-
-            // Compare the hashed input password with the stored hashed password
-            return hashedInputPassword == hashedPassword;
-        }
-
-
     }
 }
