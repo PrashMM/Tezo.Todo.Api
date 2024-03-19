@@ -1,4 +1,4 @@
-﻿namespace Tezo_Todo.Models
+﻿namespace Tezo.Todo.Models
 {
     public enum Status
     {

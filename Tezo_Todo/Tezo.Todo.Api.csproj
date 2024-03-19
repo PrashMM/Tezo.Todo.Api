@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,6 +21,13 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tezo.Todo.Data\Tezo.Todo.Data.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Dto\Tezo.Todo.Dto.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Repositories\Tezo.Todo.Repositories.csproj" />
+    <ProjectReference Include="..\Tezo.Todo.Services\Tezo.Todo.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Tezo_Todo.Models
+﻿namespace Tezo.Todo.Dtos.PaginatedList
 {
     public class PaginatedList<T>
     {

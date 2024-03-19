@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Tezo_Todo.Data;
+using Tezo.Todo.Data;
 
 #nullable disable
 
-namespace Tezo_Todo.Migrations
+namespace Tezo.Todo.Data.Migrations
 {
     [DbContext(typeof(TodoAPIDbContext))]
-    partial class TodoAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318141648_postgres")]
+    partial class postgres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,17 +25,26 @@ namespace Tezo_Todo.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Tezo_Todo.Models.Assignment", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.Assignment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DueDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Priority")
@@ -55,25 +67,34 @@ namespace Tezo_Todo.Migrations
                     b.ToTable("Assignment");
                 });
 
-            modelBuilder.Entity("Tezo_Todo.Models.User", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UniqueName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -82,9 +103,9 @@ namespace Tezo_Todo.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Tezo_Todo.Models.Assignment", b =>
+            modelBuilder.Entity("Tezo.Todo.Models.Assignment", b =>
                 {
-                    b.HasOne("Tezo_Todo.Models.User", "User")
+                    b.HasOne("Tezo.Todo.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

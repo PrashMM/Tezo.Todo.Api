@@ -1,32 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tezo_Todo.Data;
-using Tezo_Todo.Models;
-using Tezo_Todo.Services;
+using Tezo.Todo.Dto;
+using Tezo.Todo.Services.Interfaces;
 
-namespace Tezo_Todo.Controllers
+namespace Tezo.Todo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserService _userService;
-        public UserController(TodoAPIDbContext dbContext)
+        private readonly IUserService _userService;
+        public UserController(IUserService userServices)
         {
-            _userService = new UserService(dbContext);
+            _userService = userServices;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(_userService.GetAllUser());
+            return Ok(await _userService.GetAllUser());
         }
 
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddUser(UserDto user)
         {
-            var newUser = _userService.AddUser(user);
+            var newUser = await _userService.AddUser(user);
             return Ok(newUser);
         }
 
@@ -40,9 +39,9 @@ namespace Tezo_Todo.Controllers
 
         [HttpPut]
         [Route("Update{id:Guid}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, User user)
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, UserDto user)
         {
-            var updatedUser = _userService.UpdateUser(id, user);
+            var updatedUser =await _userService.UpdateUser(id, user);
             return Ok(updatedUser);
         }
 
